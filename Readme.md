@@ -33,9 +33,9 @@ In the proposed design, the stored 512-point sinc function inherently contains a
 In the hardware implementation, the convolution operation is not explicitly performed. Instead, the effect of convolution is achieved through **circular shifting** of the stored sinc waveform.
 
 The base waveform, labeled **SINC**, is stored in BRAM as a **512-point, 8-bit table**. Each entry corresponds to a sample of the sinc function. When the user specifies a frequency bin, the system shifts the read pointer of the sinc data by that bin offset. This process is mathematically equivalent to performing a **circular convolution** between the sinc function and an impulse located at the chosen bin position.
-$$
-x_b[n] = (\delta[n - b] * h[n]) = h[n - b]
-$$
+
+$$x_b[n] = (\delta[n - b] * h[n]) = h[n - b]$$
+
 To generate the **polyphase samples**, eight equally spaced points are read from the sinc waveform. The address pointer increments by **64** for each new phase sample. Once the address exceeds 512, it wraps around by subtracting 512, effectively implementing a **modulo-512 addressing scheme**. This ensures continuous phase progression and cyclic data access within the stored waveform.
 
 ## Non-Idealities: Phase Error
