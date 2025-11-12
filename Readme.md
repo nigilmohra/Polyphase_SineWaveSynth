@@ -68,16 +68,23 @@ This $\epsilon$ represents the phase jump at each boundary.
 ### 2.4.1. Phase Error: Correlation
 
 The accumulated phase error after $N$ replications is:
+
 $$\Phi_N = N\epsilon \; (\bmod 2\pi)$$
+
 Thus, phase error does not average out - it adds linearly across replications. Because the same segment is replicated repeatedly, the boundary mismatch is perfectly correlated and deterministic:
-$$\Phi_{N+1} - \Phi_N = \epsilon$$This relation holds for all $N$, showing that periodic replication without correction leads to deterministic phase drift.
+
+$$\Phi_{N+1} - \Phi_N = \epsilon$$
+
+This relation holds for all $N$, showing that periodic replication without correction leads to deterministic phase drift.
 
 ## 2.5. Inverse Fourier Transform and Phase Rotation Interpolation
 
 Before the phase rotation interpolation is multiplied with the 8-point data samples that will be replicated $N$ times, they are converted from frequency domain to time domain using inverse Fourier transform. 
 
 After that, each of the 8-base samples represents one polyphase component of the original 512-point sine wave. By applying incremental complex rotations to each base sample, all intermediate points are constructed at high precision.
+
 $$s[n] = A_i \cdot e^{j\left(\frac{2\pi n}{512} + \phi_i\right)}, \quad n \in \text{segment } i$$
+
 This approach is functionally equivalent to an 8-phase DDS, where each coarse phase bin acts as an individual oscillator producing a specific segment of the waveform.
 
 Each extracted point generates 64 interpolated samples through phase rotation multiplication using  $e^{j\theta}$, where $\theta = \frac{2\pi m}{512}$. This process reconstructs a full 512-point waveform from 8-base samples.
