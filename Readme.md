@@ -88,7 +88,9 @@ $$s[n] = A_i \cdot e^{j\left(\frac{2\pi n}{512} + \phi_i\right)}, \quad n \in \t
 This approach is functionally equivalent to an 8-phase DDS, where each coarse phase bin acts as an individual oscillator generating a specific segment of the waveform. **The phase rotation factor, which varies for each bin position, was stored in BRAM along with its real and imaginary components. The complex multiplication was implemented using DSP multiplier IP cores.**
 
 ---
+
 Each extracted point generates 64 interpolated samples through phase rotation multiplication using  $e^{j\theta}$, where $\theta = \frac{2\pi m}{512}$. **This process reconstructs a complete 512-point waveform from 8 base samples. The IFFT and phase multiplication require both the real and imaginary components from SINC and Phase Rotation; however, only the </u>real part is utilized in the final output</u>.** 
+
 ---
 
 ## 2.6. Frequency Generated
@@ -120,4 +122,5 @@ $$\text{SINAD} = 6.02 \times 10 + 1.76 = 61.96 \text{ dB}$$
 Note that, through parallelization and pipelined phase rotation, the architecture can scale beyond **100 MHz** on modern FPGA devices. **This work was carried out with a focus on expanding the bin selection control to enable the generation of chirp signals for radar testing**.
 
 ---
+
 End of Document
