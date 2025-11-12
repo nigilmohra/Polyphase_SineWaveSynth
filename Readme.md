@@ -92,32 +92,30 @@ Each extracted point generates 64 interpolated samples through phase rotation mu
 ## Frequency Generated
 
 The output frequency $f_{out}$ is related to the FPGA clock frequency $f_{clk}$ by:
+
 $$f_{out} = f_{clk} \cdot \frac{N_{bin}}{N_{table}}$$
 
-## Results
+# 3. Results
 
-This technique allows output frequency to be controlled via bin selection, enabling. The design was tested at 50 MHz clock frequency, the data was captured using Logic Analyzer and the 12-bit points were compared with the golden reference and an ENOB of appx. 10 was achieved for 12. The verification was performed using Nexys DDR 3 Artix 7 Board.
+This technique allows output frequency to be controlled via bin selection, enabling. The design was tested at 50 MHz clock frequency, the data was captured using Logic Analyzer and the 12-bit points were compared with the golden reference and an ENOB of appx. 10 was achieved for 12. The verification was performed using <u>Nexys DDR 3 Artix 7 Board</u>.
 
-### ENOB Calculation
+## 3.1. ENOB Calculation
 
 The observed output has deviations of up to ±2 LSB (2-bit error) and behaves as **random noise**, we can approximate:
-$$
-\text{ENOB} = 12 - \log_2(\sqrt{12}\,\sigma_e)
-$$
-$$
-\sigma_e \approx \frac{2}{\sqrt{3}} \approx 1.155 \text{ LSB}
-$$
+
+$$\text{ENOB} = 12 - \log_2(\sqrt{12}\,\sigma_e)$$
+
+$$\sigma_e \approx \frac{2}{\sqrt{3}} \approx 1.155 \text{ LSB}$$
+
 Then,
 
-$$
-\text{ENOB} = 12 - \log_2(\sqrt{12} \times 1.155) = 12 - 2.0 = 10.0
-$$
+$$\text{ENOB} = 12 - \log_2(\sqrt{12} \times 1.155) = 12 - 2.0 = 10.0$$
 
 Thus, the **ENOB ≈ 10 bits**, which corresponds to a SINAD of:
-$$
-\text{SINAD} = 6.02 \times 10 + 1.76 = 61.96 \text{ dB}
-$$
-Note that, through parallelization and pipelined phase rotation, the architecture can scale beyond **100 MHz** on modern FPGA devices.
+
+$$\text{SINAD} = 6.02 \times 10 + 1.76 = 61.96 \text{ dB}$$
+
+Note that, through parallelization and pipelined phase rotation, the architecture can scale beyond **100 MHz** on modern FPGA devices. **This work was carried out with a focus on expanding the bin selection control to enable the generation of chirp signals for radar testing**.
 
 ---
 End of Document
