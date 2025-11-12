@@ -38,33 +38,41 @@ $$x_b[n] = (\delta[n - b] * h[n]) = h[n - b]$$
 
 To generate the **polyphase samples**, eight equally spaced points are read from the sinc waveform. The address pointer increments by **64** for each new phase sample. Once the address exceeds 512, it wraps around by subtracting 512, effectively implementing a **modulo-512 addressing scheme**. This ensures continuous phase progression and cyclic data access within the stored waveform.
 
-## Non-Idealities: Phase Error
+## 2.4. Non-Idealities: Phase Error
 
-Now that we have the 8-points, which is approximately equivalent to a single cycle of the desired sine wave (specific bin). If the signal is replicated $N$ times there might be phase error (spectral leakage). 
+Now that we have the 8-points, which is approximately equivalent to a single cycle of the desired sine wave (specific bin). If the signal is replicated $N$ times there might be phase error (spectral leakage). This is the non-ideality we have to deal with but this can easiliy overcome because the phase error accumulated linearly.
 
 True Signal:
+
 $$x[n] = A\sin(\omega_0 n + \phi_0)$$
+
 If $L$ samples corresponding to one intended cycle are extracted and replicated then:
+
 $$\Delta \Phi = \omega_0 L$$
+
 If $L$ equals one true period, then $\Delta\Phi = 2\pi$. In practice, there is a residual mismatch:
+
 $$\epsilon = \text{wrap}(\Delta\Phi - 2\pi)$$
 
 where,
-$$\text{wrap}(x) = ((x + \pi) \bmod 2\pi) - \pi$$This $\epsilon$ represents the phase jump at each boundary.
+
+$$\text{wrap}(x) = ((x + \pi) \bmod 2\pi) - \pi$$
+
+This $\epsilon$ represents the phase jump at each boundary.
 
 | $\epsilon = 0$ |         Perfect alignment         |
 | :------------: | :-------------------------------: |
 | $\epsilon > 0$ | Sine advances in phase each cycle |
 | $\epsilon < 0$ |       Sine lags each cycle        |
 
-### Phase Error: Correlation
+### 2.4.1. Phase Error: Correlation
 
 The accumulated phase error after $N$ replications is:
 $$\Phi_N = N\epsilon \; (\bmod 2\pi)$$
 Thus, phase error does not average out - it adds linearly across replications. Because the same segment is replicated repeatedly, the boundary mismatch is perfectly correlated and deterministic:
 $$\Phi_{N+1} - \Phi_N = \epsilon$$This relation holds for all $N$, showing that periodic replication without correction leads to deterministic phase drift.
 
-## Inverse Fourier Transform and Phase Rotation Interpolation
+## 2.5. Inverse Fourier Transform and Phase Rotation Interpolation
 
 Before the phase rotation interpolation is multiplied with the 8-point data samples that will be replicated $N$ times, they are converted from frequency domain to time domain using inverse Fourier transform. 
 
