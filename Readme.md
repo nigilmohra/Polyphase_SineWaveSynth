@@ -86,9 +86,11 @@ After that, each of the 8-base samples represents one polyphase component of the
 $$s[n] = A_i \cdot e^{j\left(\frac{2\pi n}{512} + \phi_i\right)}, \quad n \in \text{segment } i$$
 
 This approach is functionally equivalent to an 8-phase DDS, where each coarse phase bin acts as an individual oscillator generating a specific segment of the waveform. **The phase rotation factor, which varies for each bin position, was stored in BRAM along with its real and imaginary components. The complex multiplication was implemented using DSP multiplier IP cores.**
+
 ---
 Each extracted point generates 64 interpolated samples through phase rotation multiplication using  $e^{j\theta}$, where $\theta = \frac{2\pi m}{512}$. **This process reconstructs a complete 512-point waveform from 8 base samples. The IFFT and phase multiplication require both the real and imaginary components from SINC and Phase Rotation; however, only the </u>real part is utilized in the final output</u>.** 
 ---
+
 ## 2.6. Frequency Generated
 
 The output frequency $f_{out}$ is related to the FPGA clock frequency $f_{clk}$ by:
