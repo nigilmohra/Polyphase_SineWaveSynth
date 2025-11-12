@@ -12,6 +12,7 @@ This document describes a Polyphase Direct Digital Synthesizer (DDS). The design
 In digital signal processing, polyphase decomposition refers to dividing a signal into multiple sub-sequences, each representing a distinct phase offset of the main signal. 
 
 Mathematically:
+
 $$x_k[m] = x[Mm + k], \quad k = 0, 1, \dots, M-1$$
 
 Each $x_k[m]$ corresponds to a sub-sequence offset by $k$ samples. Together, these $M$ sequences reconstruct the original signal. In waveform synthesis, this translates to using multiple phase-offset sample of a periodic waveform - each representing a phase branch in multi-phase oscillator system.
