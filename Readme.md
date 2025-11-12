@@ -89,7 +89,7 @@ This approach is functionally equivalent to an 8-phase DDS, where each coarse ph
 
 Each extracted point generates 64 interpolated samples through phase rotation multiplication using  $e^{j\theta}$, where $\theta = \frac{2\pi m}{512}$. This process reconstructs a full 512-point waveform from 8-base samples.
 
-## Frequency Generated
+## 2.6. Frequency Generated
 
 The output frequency $f_{out}$ is related to the FPGA clock frequency $f_{clk}$ by:
 
@@ -97,7 +97,7 @@ $$f_{out} = f_{clk} \cdot \frac{N_{bin}}{N_{table}}$$
 
 # 3. Results
 
-This technique allows output frequency to be controlled via bin selection, enabling. The design was tested at 50 MHz clock frequency, the data was captured using Logic Analyzer and the 12-bit points were compared with the golden reference and an ENOB of appx. 10 was achieved for 12. The verification was performed using <u>Nexys DDR 3 Artix 7 Board</u>.
+This technique allows the output frequency to be controlled through bin selection. The design was tested at a 50 MHz clock frequency, and the output data was captured using a Logic Analyzer. The 12-bit samples were then compared with the golden reference, yielding an effective number of bits (ENOB) of approximately 10 out of 12. Verification was carried out using the Nexys DDR3 Artix-7 board.
 
 ## 3.1. ENOB Calculation
 
