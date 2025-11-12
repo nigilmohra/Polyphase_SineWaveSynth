@@ -13,6 +13,7 @@ In digital signal processing, polyphase decomposition refers to dividing a signa
 
 Mathematically:
 $$x_k[m] = x[Mm + k], \quad k = 0, 1, \dots, M-1$$
+
 Each $x_k[m]$ corresponds to a sub-sequence offset by $k$ samples. Together, these $M$ sequences reconstruct the original signal. In waveform synthesis, this translates to using multiple phase-offset sample of a periodic waveform - each representing a phase branch in multi-phase oscillator system.
 
 ## Rectangular Window and Polyphase Reconstruction
